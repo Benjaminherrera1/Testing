@@ -1,0 +1,43 @@
+{% extends 'postulacion_iniciativa.html' %}
+{% load static %}
+
+{% with paso_actual=1 %}
+{% block formulario %}
+<!-- Títulos -->
+<h2>Formulario de iniciativa</h2>
+<h1>Datos de la empresa</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="{{ form.nombre.id_for_label }}">Nombre de empresa o Institución Publica</label>
+        {{ form.nombre }}  
+    </div>
+          
+    <div class="form-group">
+        <label for="{{ form.cantPersonas.id_for_label }}">Cantidad de personas que tiene su empresa</label>
+        {{ form.cantPersonas }}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.año.id_for_label }}">Año de fundación de la empresa</label>
+        {{ form.año }}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.actividad.id_for_label }}">Actividad de la empresa</label>
+        {{ form.actividad }}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.pais.id_for_label }}">País sede principal</label>
+        {{ form.pais }}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.ciudad.id_for_label }}">Ciudad</label>
+        {{ form.ciudad }}
+    </div>
+    <div class="buttons">
+        <a href="{% url 'home:index' %}" class="button">Volver</a> 
+        <button type="submit">Siguiente</button>
+    </div>
+</form>
+{% endblock %}
+{% endwith %}

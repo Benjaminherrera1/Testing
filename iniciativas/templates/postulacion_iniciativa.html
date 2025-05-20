@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/postulacion_i.css' %}">
+{% endblock %}
+
+{% block content %}
+<body style="background-image: url(&quot;{% static 'img/fondoiniciativa2.png' %}&quot;); background-size: cover; background-repeat: no-repeat; background-position: center; background-attachment: fixed;">
+    <div class="content">
+        <div class="zona-formulario">
+            <div class="formulario">
+                {% block formulario %}
+                {% endblock %}
+            </div>
+        </div>
+        <!-- Texto de postulación -->
+        <div class="texto-postulacion">
+            <h2 class="titulo-desafio">Postulación de iniciativa</h2>
+
+            <h1 class="frase-impacto grande">¡Estás a un paso de un gran cambio!</h1>
+            <p class="descripcion-impacto">Esta postulación es el inicio del camino para que podamos administrar tu solución de la mejor manera.</p>
+
+            <!-- Stepper horizontal -->
+            <div class="stepper-horizontal">
+                <div class="step-h {% if paso_actual == 1 %}active-h{% endif %}">1</div>
+                <div class="line-h"></div>
+                <div class="step-h {% if paso_actual == 2 %}active-h{% endif %}">2</div>
+                <div class="line-h"></div>
+                <div class="step-h {% if paso_actual == 3 %}active-h{% endif %}">3</div>
+                <div class="line-h"></div>
+                <div class="step-h {% if paso_actual == 4 %}active-h{% endif %}">4</div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

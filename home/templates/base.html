@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LRGB0E3W5B"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-LRGB0E3W5B');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}NODO{% endblock %}</title>
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
+    {% block head %}{% endblock %} 
+</head>
+<body>
+    <div class="wrapper">
+        <header style="background-color: {{ site_header_bg_color|default:'#ffffff' }};"> 
+            <div class="container">
+                <div class="logo">
+                    <a href="{% url 'home:index' %}"> 
+                        {% if site_logo_url %} 
+                            <img src="{{ site_logo_url }}" alt="Logo del Sitio" class="site-logo"> 
+                        {% else %}
+                            <img src="{% static 'img/logo_NODO.png' %}" alt="Logo NODO por defecto" class="site-logo"> 
+                        {% endif %}
+                    </a>
+                </div>
+                <nav class="menu">
+                    <ul>
+                       
+                        <li><a href="{% url 'home:index' %}">Inicio</a></li> 
+                        <li><a href="{% url 'blog:listar_posts' %}">Blog</a></li> 
+                        <li><a href="{% url 'home:contacto' %}">Contacto</a></li> 
+                    </ul>
+                </nav>
+
+                {# Desktop Buttons #}
+                <a href="{% url 'home:postula' %}" class="right-button postula" >Postula aquí</a> 
+
+                {% if user.is_authenticated %}
+                    {# If user is logged in, show Admin and Logout buttons #}
+                    <a href="{% url 'metabase' %}" class="right-button acceder" >Administración</a> {# Assuming 'admin:index' is the URL name for the admin site homepage #}
+                    <a href="{% url 'admin:index' %}" class="right-button acceder" >Administración Sup</a>
+                    <a href="{% url 'logout' %}" class="right-button acceder" >Cerrar Sesión</a> {# Assuming 'logout' is the URL name for the logout view #}
+                {% else %}
+                    {# If user is not logged in, show Login button #}
+                    <a href="{% url 'login' %}" class="right-button acceder" >Iniciar Sesión</a> {# Assuming 'login' is the URL name for the login view #}
+                {% endif %}
+                {# End Desktop Buttons #}
+
+
+                <button id="menu-toggle" class="menu-button">☰</button>
+
+                {# Mobile Sidebar #}
+                <nav id="sidebar" class="sidebar">
+                    <ul>
+                        {# Sidebar Authentication Links #}
+                        {% if user.is_authenticated %}
+                             {# If user is logged in, show Admin and Logout links in sidebar #}
+                            <li><a href="{% url 'admin:index' %}" class="sidebar-auth-link acceder">Administración</a></li> 
+                            <li><a href="{% url 'logout' %}" class="sidebar-auth-link acceder">Cerrar Sesión</a></li> 
+                        {% else %}
+                             {# If user is not logged in, show Login link in sidebar #}
+                            <li><a href="{% url 'login' %}" class="sidebar-auth-link acceder">Iniciar Sesión</a></li>
+                        {% endif %}
+                        {# End Sidebar Authentication Links #}
+                        
+                        {# Existing main sidebar links #}
+                        <li><a href="{% url 'home:index' %}">Inicio</a></li>
+                        <li><a href="{% url 'blog:listar_posts' %}">Blog</a></li>
+                        <li><a href="{% url 'home:contacto' %}">Contacto</a></li>
+                         {# <li><a href="{% url 'home:postula' %}">Postula aquí</a></li> #} {# This was commented out, leaving it commented #}
+                    </ul>
+                </nav>
+                {# End Mobile Sidebar #}
+                {# <script src="{% static 'js/base.js' %}"></script> #}
+            </div>
+        </header>
+
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer class="footer"  id="footer">
+            <div class="footer-logos">
+                <a href="https://omcpl.org/logistica-justa/" target="_blank" rel="noopener noreferrer">
+                    <img class="logo"src="{% static 'img/Fair logistic blanco.png' %}" alt="Fair Logistics Logo">
+                </a >
+                <a href="https://camiongo.com/" target="_blank" rel="noopener noreferrer">
+                    <img class="logo"src="{% static 'img/Logo-CamionGo-2019-Blanco.png' %}" alt="CamionGO Logo">
+                </a>
+                <a href="https://www.omcpl.org/" target="_blank" rel="noopener noreferrer">
+                    <img class="logo OMCPL"src="{% static 'img/OMCPL_logo.png' %}" alt="OMCPL Logo">
+                </a>
+            </div>
+            <div class="divider"></div>
+            <div class="GOxT">
+                <small>Copyright © {% now "Y" %}</small>
+                <img class="GOxT_logo"src="{% static 'img/GOxT Blanco.png' %}" alt="GOxT">
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="{% static 'js/base.js' %}"></script>
+    {% block extra_js %}{% endblock %} 
+
+</body>
+</html>

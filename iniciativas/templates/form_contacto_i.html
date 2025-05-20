@@ -1,0 +1,58 @@
+{# iniciativas/templates/form_contacto_i.html #}
+{% extends 'postulacion_iniciativa.html' %} {# O la plantilla base que estés usando #}
+{% load static %}
+
+{% with paso_actual=2 %}
+{% block formulario %}
+<!-- Títulos con formato igual al paso 1 -->
+<h2>Formulario de iniciativa</h2>
+<h1>Datos de contacto</h1>
+
+    {# Mostrar mensajes del sistema si hay #}
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {# Mostrar errores generales del formulario si hay #}
+    {% if form.non_field_errors %}
+        <div class="form-errors">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="{{ form.nombre.id_for_label }}">Nombre del contacto</label>
+        {{ form.nombre }}
+         {% if form.nombre.errors %} <div class="form-errors">{{ form.nombre.errors }}</div> {% endif %}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.cargo.id_for_label }}">Cargo del contacto</label>
+        {{ form.cargo }}
+         {% if form.cargo.errors %} <div class="form-errors">{{ form.cargo.errors }}</div> {% endif %}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.correo.id_for_label }}">Correo del contacto</label>
+        {{ form.correo }}
+         {% if form.correo.errors %} <div class="form-errors">{{ form.correo.errors }}</div> {% endif %}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.telefono.id_for_label }}">Teléfono del contacto</label>
+        {{ form.telefono }}
+         {% if form.telefono.errors %} <div class="form-errors">{{ form.telefono.errors }}</div> {% endif %}
+    </div>
+    <div class="buttons">
+        <a href="{% url 'empresa_step_i' id=id_objeto|default:0 %}" class="button boton-volver">Volver</a> {# <-- CAMBIO AQUÍ #}
+        <button type="submit" class="button">Siguiente</button>
+    </div>
+</form>
+{% endblock %}
+{% endwith %}
+
+{# Puedes añadir un bloque extra_js_form_step si necesitas JS específico para este paso #}
+{# {% block extra_js_form_step %} {% endblock %} #}

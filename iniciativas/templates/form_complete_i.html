@@ -1,0 +1,24 @@
+<!-- iniciativas/templates/form_complete_i.html -->
+{% extends 'postulacion_iniciativa.html' %}  {# Extiende de la plantilla base específica de postulación de iniciativa #}
+{% load static %}
+
+{% block formulario %}
+    {# Contenido específico de la página de completado #}
+    <div class="mensaje-exito"> {# Asumo que la clase mensaje-exito está definida en tu CSS #}
+        <h2>¡Felicitaciones!</h2>
+        {# Asumo que la variable tipo_postulacion se pasa al contexto de esta plantilla #}
+        <p>Los datos de tu {{ tipo_postulacion|lower }} han sido enviados exitosamente.</p>
+
+        {# Enlace para volver a la página principal - USA NAMESPACE Y NOMBRE CORRECTOS #}
+        {# 'index' está en home.urls, que tiene namespace 'home'. #}
+        <a href="{% url 'home:index' %}" class="button">Volver al inicio</a> {# <-- CAMBIO AQUÍ #}
+    </div>
+{% endblock %}
+
+{# Si postulacion_iniciativa.html define otros bloques (como head, extra_js),
+   y necesitas añadir contenido a ellos en esta plantilla, puedes definirlos aquí.
+   Por ejemplo:
+   {% block extra_js %}
+       {# JS específico para la página de completado si lo necesitas #}
+   {% endblock %}
+#}

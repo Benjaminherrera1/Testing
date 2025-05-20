@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <title>{{ post.titulo }} - NODO</title>
+{% endblock %} 
+
+{% block content %}
+<div class="content">
+    <div class="post">
+        <h1>{{ post.titulo }}</h1>
+        <small>{{ post.fecha }}</small>
+        <img class="portada" src="{{ post.portada.url }}" alt="{{ post.titulo }}" loading="lazy">
+
+        <div class="post_content">
+            {{ post.contenido|safe }}
+        </div>
+
+        <div class="author">
+            <h4>Escrito por: {{ post.autor }}</h4>
+        </div>
+
+        <h4>Comparte este post en:</h4>
+        <div class="share-buttons">
+            <a class="share-button facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://innovacion.omcpl.org/blog/{{ post.slug }}" target="_blank">Facebook</a>
+            <a class="share-button twitter" href="https://twitter.com/intent/tweet?url=https://innovacion.omcpl.org/blog/{{ post.slug }}&text={{ post.titulo }}" target="_blank">Twitter</a>
+            <a class="share-button linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https://innovacion.omcpl.org/blog/{{ post.slug }}" target="_blank">LinkedIn</a>
+            <a class="share-button whatsapp" href="https://wa.me/?text=https://innovacion.omcpl.org/blog/{{ post.slug }}" target="_blank">WhatsApp</a>
+        </div>
+
+        <div class="tags">
+            <small>Tags:</small>
+            {% for tag in post.get_tags_list %}
+                <div class="tag">{{ tag }}</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'postulacion_iniciativa.html' %}
+{% load static %}
+
+{% with paso_actual=3 %}
+{% block formulario %}
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<!-- Títulos con formato igual al paso 1 -->
+<h2>Formulario de iniciativa</h2>
+<h1>Datos de la iniciativa</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="{{ form.titulo.id_for_label }}">Escriba un título para su postulación</label>
+        {{ form.titulo }} 
+    </div>
+    <div class="form-group">
+        <label for="{{ form.pregunta.id_for_label }}">Describa su iniciativa</label>
+        {{ form.descripcion }}  
+    </div>  
+    <div class="form-group">
+        <label for="{{ form.latam.id_for_label }}">¿Tiene presencia en Latinoamérica?</label>
+        {{ form.latam }}  
+    </div>  
+    <div class="form-group">
+        <label for="{{ form.video.id_for_label }}">Enlace a video sobre la solución (opcional)</label>
+        {{ form.video }}  
+    </div>  
+    <div class="form-group">
+        <label for="{{ form.diferenciacion.id_for_label }}">¿Cómo se diferencia de la competencia?</label>
+        {{ form.diferenciacion }}  
+    </div>  
+    <div class="form-group">
+        <label for="{{ form.traccion.id_for_label }}">Tracción (Ingresos en los últimos 12 meses)</label>
+        {{ form.traccion }}  
+    </div>  
+    <div class="form-group">
+        <label for="{{ form.piloto.id_for_label }}">¿Cuáles son los requerimientos para la implementación de un piloto?</label>
+        {{ form.piloto }}  
+    </div>  
+    <div class="form-group">
+        <label for="{{ form.pregunta.id_for_label }}">¿Deseas hacer alguna pregunta o sugerencia al centro de innovación?</label>
+        {{ form.pregunta }}  
+    </div>  
+    <div class="form-group">
+        <label for="{{ form.origen.id_for_label }}">¿Cómo te enteraste de NODO Centro de Innovación OMCPL?</label>
+        {{ form.origen }} 
+    </div>
+    
+    <div class="form-group">
+        <label>Escribe el siguiente texto</label>
+        {{ form.captcha }} 
+    </div>
+    
+    <div class="buttons">
+        <button type="button" class="boton-volver" onclick="location.href='contacto_i';">Volver</button>
+        <button type="submit">Finalizar</button>
+    </div>
+</form>
+{% endblock %}
+{% endwith %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    {# Si Bootstrap CSS no se usa en este template, es más limpio no incluirlo aquí #}
+    {# Si SÍ se usa, déjalo. #}
+    {# <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> #}
+    {% block extra_css %}{% endblock %} {# Para añadir CSS adicional por plantillas hijas de blog.html #}
+{% endblock %}
+
+{% block content %}
+<div class="search">
+    <input type="text" id="search-input" placeholder="Buscar posts..." />
+</div>
+
+<div class="blog_wrapper" id="results">
+    {% for post in posts %}
+    <div class="post_card">
+        {# ENLACE 1: La imagen del post - USA NAMESPACE Y NOMBRE CORRECTOS #}
+        <a href="{% url 'blog:post_detalle' slug=post.slug %}"> {# <-- CAMBIO AQUÍ #}
+            <img src="{{ post.portada.url }}" alt="{{ post.titulo }}" class="post_img">
+        </a>
+        <div class="post_content">
+            {# ENLACE 2: El título del post - USA NAMESPACE Y NOMBRE CORRECTOS #}
+            <a href="{% url 'blog:post_detalle' slug=post.slug %}" class="post_title">{{ post.titulo }}</a> {# <-- CAMBIO AQUÍ #}
+            <p class="post_description">{{ post.contenido_preview }}</p>
+            <small class="post_date">{{ post.fecha|date:"d \d\e F \d\e Y \a \l\a\s H:i" }}</small>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{# Mueve script a {% block extra_js %} en base.html o justo antes del cierre del body #}
+{# <script src="{% static 'js/blog.js' %}"></script> #}
+{% endblock %}
+
+{# Es mejor cargar scripts JS aquí para que se ejecuten después de que el DOM esté listo #}
+{% block extra_js %}
+    <script src="{% static 'js/blog.js' %}"></script> {# <-- MOVIDO AQUÍ #}
+{% endblock %}

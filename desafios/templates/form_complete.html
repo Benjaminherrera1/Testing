@@ -1,0 +1,25 @@
+{# desafios/templates/form_complete.html #}
+{% extends 'postulacion.html' %} {# Extiende de la plantilla base específica de postulación de desafío #}
+{% load static %}
+
+{%block formulario%}
+    {# Contenido específico de la página de completado #}
+    {# Usamos la clase mensaje-exito definida en el CSS combinado para aplicar estilos de éxito #}
+    <div class="mensaje-exito"> {# <-- Añadido un div con clase para estilos #}
+        <h2>¡Felicitaciones!</h2>
+        {# Texto de completado para postulación de desafío #}
+        <p>Los datos de tu postulación de desafío han sido enviados exitosamente.</p> {# <-- Texto ajustado #}
+
+        {# Enlace para volver a la página principal - USA NAMESPACE Y NOMBRE CORRECTOS #}
+        {# 'index' está en home.urls, que tiene namespace 'home'. #}
+        <a href="{% url 'home:index' %}" class="button">Volver al inicio</a> {# <-- AÑADIDO Y CORREGIDO #}
+    </div>
+{%endblock%}
+
+{# Si postulacion.html define otros bloques (como head, extra_js),
+   y necesitas añadir contenido a ellos en esta plantilla, puedes definirlos aquí.
+   Por ejemplo:
+   {% block extra_js %}
+       {# JS específico para la página de completado si lo necesitas #}
+   {% endblock %}
+#}

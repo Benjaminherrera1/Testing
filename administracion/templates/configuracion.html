@@ -1,0 +1,179 @@
+{# administracion/templates/configuracion.html #}
+{% extends 'admin.html' %}
+{% load static %}
+
+{% block title %}Configuraciones - NODO{% endblock %}
+
+{% block head %}
+  {{ form.media }}
+  <link rel="stylesheet" href="{% static 'css/administracion.css' %}" />
+  {% block extra_css %}{% endblock %}
+{% endblock %}
+
+{% block volver %}{% endblock %}
+
+{% block content %}
+<div class="config-section">
+    <h2>Configuraciones del Sitio</h2>
+
+    {# Errores generales del formulario #}
+    {% if form.non_field_errors %}
+        <div class="form-errors">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    {# Mensajes del sistema (éxito, error, info, etc.) #}
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <section class="config-section">
+            <h3>Configuración de Logo Principal</h3>
+            <div class="logo-config-controls">
+                <div class="logo-preview" id="logo-preview">
+                    {% if current_logo_url %}
+                        <img src="{{ current_logo_url }}" alt="Previsualización del logo actual">
+                    {% else %}
+                        <span id="logo-preview-placeholder">Previsualización del logo</span>
+                    {% endif %}
+                </div>
+                <div class="logo-upload-group">
+                    {{ form.logo.label_tag }}
+                    {{ form.logo }}
+                    {% if form.logo.help_text %}
+                        <small class="form-text text-muted">{{ form.logo.help_text|safe }}</small>
+                    {% endif %}
+                    {% if form.logo.errors %}
+                        <div class="form-errors">{{ form.logo.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+        <section class="config-section">
+            <h3>Configuración de Temas y Colores</h3>
+
+            <div class="form-group">
+                {{ form.public_header_background_color.label_tag }}
+                {{ form.public_header_background_color }}
+                {% if form.public_header_background_color.help_text %}
+                    <small class="form-text text-muted">{{ form.public_header_background_color.help_text|safe }}</small>
+                {% endif %}
+                {% if form.public_header_background_color.errors %}
+                    <div class="form-errors">{{ form.public_header_background_color.errors }}</div>
+                {% endif %}
+            </div>
+
+            <h4>{{ form.background_theme.label }}</h4>
+            <div class="theme-selection-group">
+                {{ form.background_theme }}
+                {% if form.background_theme.help_text %}
+                    <small class="form-text text-muted">{{ form.background_theme.help_text|safe }}</small>
+                {% endif %}
+                {% if form.background_theme.errors %}
+                    <div class="form-errors">{{ form.background_theme.errors }}</div>
+                {% endif %}
+            </div>
+
+            <h4>{{ form.sidebar_theme.label }}</h4>
+            <div class="theme-selection-group">
+                <div class="theme-palette">
+                    {{ form.sidebar_theme }}
+                </div>
+                {% if form.sidebar_theme.help_text %}
+                    <small class="form-text text-muted">{{ form.sidebar_theme.help_text|safe }}</small>
+                {% endif %}
+                {% if form.sidebar_theme.errors %}
+                    <div class="form-errors">{{ form.sidebar_theme.errors }}</div>
+                {% endif %}
+            </div>
+        </section>
+
+        <div class="save-button-container">
+            <button type="submit" class="guardar-cambio-btn" aria-label="Guardar configuración del sitio">Guardar Cambios</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Previsualización del logo
+document.getElementById('id_logo').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    const preview = document.getElementById('logo-preview');
+    const placeholder = document.getElementById('logo-preview-placeholder');
+    const existingImg = preview.querySelector('img');
+
+    if (existingImg) existingImg.remove();
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            if (placeholder) placeholder.style.display = 'none';
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.alt = 'Previsualización del logo nuevo';
+            img.style.maxWidth = '100%';
+            img.style.maxHeight = '100px';
+            img.style.objectFit = 'contain';
+            img.style.display = 'block';
+
+            preview.style.width = '100px';
+            preview.style.height = '100px';
+            preview.style.display = 'flex';
+            preview.style.justifyContent = 'center';
+            preview.style.alignItems = 'center';
+
+            preview.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+    } else {
+        const initialLogoUrl = "{{ current_logo_url|default:'' }}";
+        if (!initialLogoUrl && placeholder) {
+            placeholder.style.display = 'flex';
+        }
+    }
+});
+
+// Swatches para temas
+document.querySelectorAll('.theme-selection-group input[type="radio"]').forEach(radio => {
+    const label = radio.closest('label');
+    if (label) {
+        label.classList.add('theme-swatch-label');
+        label.style.backgroundColor = `var(--${radio.value}-bg, #ccc)`;
+
+        const selectedIndicator = document.createElement('span');
+        selectedIndicator.classList.add('selected-indicator');
+        selectedIndicator.textContent = '✓';
+
+        const updateSelection = () => {
+            label.closest('.theme-selection-group').querySelectorAll('.theme-swatch-label').forEach(lbl => {
+                lbl.classList.remove('selected');
+                const existingIndicator = lbl.querySelector('.selected-indicator');
+                if (existingIndicator) existingIndicator.remove();
+            });
+
+            if (radio.checked) {
+                label.classList.add('selected');
+                label.appendChild(selectedIndicator);
+            }
+        };
+
+        radio.addEventListener('change', updateSelection);
+
+        if (radio.checked) {
+            updateSelection();
+        }
+    }
+});
+</script>
+{% endblock %}

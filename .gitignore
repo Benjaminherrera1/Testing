@@ -1,0 +1,12 @@
+.env/
+*.pyc
+env/
+env/
+*pyc
+settings.py
+/media/
+*.pyo
+__pycache__
+media/*
+*.env
+administracion/documentos/*

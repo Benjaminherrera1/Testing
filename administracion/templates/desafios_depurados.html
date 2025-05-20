@@ -1,0 +1,126 @@
+{% extends 'admin.html' %}
+
+{% load static %}
+
+{% block content %}
+<h1>Desafíos depurados</h1>
+
+<!-- Formulario de búsqueda -->
+<form method="get" action="" class="buscador">
+    <input type="text" name="q" placeholder="Buscar por nombre o empresa..." value="{{ query }}">
+    <button type="submit">Buscar</button>
+</form>
+
+<form method="POST" action="{% url 'actualizar_check_masivo' %}"> {# URL del admin, sin namespace #}
+    <script src="{% static 'js/check.js' %}"></script>
+    {% csrf_token %}
+    <table border="1" cellpadding="10" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Empresa</th>
+                <th>Contacto</th>
+                <th>Principal</th>
+                <th>Enlace Publico</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for desafio in desafios %}
+            <tr>
+                <td>{{ desafio.id }}</td>
+                <td>{{ desafio.nombreDesafio }}</td>
+                {# Asegúrate de que desafio.empresa y desafio.contacto tengan el atributo .nombre #}
+                {# Si desafio.empresa es un objeto Empresa, .nombre está bien. Si es FK, puede necesitar .nombre #}
+                {# Si desafio.contacto es un objeto usuario_base, .nombre está bien #}
+                <td>{{ desafio.empresa.nombre }}</td>
+                <td>{{ desafio.contacto.nombre }}</td>
+                <td>
+                    <input
+                        type="checkbox"
+                        name="isPrincipal_{{ desafio.id }}"
+                        class="checkbox-trigger"
+                        {% if desafio.isPrincipal %}checked{% endif %}
+                    >
+                </td>
+                <td>
+                    <input
+                        type="checkbox"
+                        name="show_{{ desafio.id }}"
+                        class="checkbox-trigger"
+                        {% if desafio.show %}checked{% endif %}
+
+                    >
+                    {# ENLACE AL DETALLE PÚBLICO - USA NAMESPACE Y NOMBRE CORRECTOS #}
+                    {# 'detalle' está en home.urls, que tiene namespace 'home'. #}
+                    <a href="{% url 'home:detalle' id=desafio.id %}">Ver</a> {# <-- CAMBIO AQUÍ #}
+                </td>
+                <td>
+                    {# ENLACE AL DETALLE DEL ADMIN - USA EL NOMBRE DIRECTO (sin namespace) #}
+                    {# 'verdesafio' está en administracion.urls, que no tiene namespace. #}
+                    <a href="{% url 'verdesafio' id=desafio.id %}">Ver</a> {# <-- ESTE ESTABA CORRECTO #}
+
+                    {# Botón Eliminar - USA EL NOMBRE DIRECTO (sin namespace) #}
+                    {# 'eliminarDesafio' está en administracion.urls, que no tiene namespace. #}
+                    <button type="button" onclick="eliminarDesafio({{ desafio.id }})">Eliminar</button>
+
+                    <script>
+                        function eliminarDesafio(id) {
+                            if (confirm("¿Estás seguro de que deseas eliminar este desafío?")) {
+                                // URL para eliminar - USA EL NOMBRE DIRECTO (sin namespace)
+                                // 'eliminarDesafio' está en administracion.urls.
+                                fetch("{% url 'eliminarDesafio' 0 %}".replace('0', id), { {# <-- ESTE ESTABA CORRECTO #}
+                                    method: "POST",
+                                    headers: {
+                                        "X-CSRFToken": "{{ csrf_token }}",
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify({}) // Envía un body JSON vacío
+                                }).then(response => {
+                                    if (response.ok) {
+                                        alert("Eliminado correctamente"); // Mensaje de éxito
+                                        location.reload(); // Recargar la página después de eliminar
+                                    } else {
+                                        // Manejar errores de la respuesta HTTP
+                                        response.json().then(data => {
+                                             alert("Error al eliminar el desafío: " + (data.error || response.statusText));
+                                        }).catch(() => {
+                                             alert("Error al eliminar el desafío. Código: " + response.status);
+                                        });
+                                    }
+                                }).catch(error => {
+                                     // Manejar errores de red o de la promesa fetch
+                                     alert("Error de red al intentar eliminar el desafío: " + error);
+                                });
+                            }
+                        }
+                    </script>
+
+                    {# Enlace Editar - USA EL NOMBRE DIRECTO (sin namespace) #}
+                    {# 'depurar_desafio' está en administracion.urls. #}
+                    {# Asegúrate de que desafio.postulacion NO SEA None antes de intentar acceder a .id #}
+                    {% if desafio.postulacion %}
+                         <a href="{% url 'depurar_desafio' id=desafio.postulacion.id %}">Editar</a> {# <-- ESTE ESTABA CORRECTO #}
+                    {% else %}
+                         {# Opcional: Mostrar algo si el desafío no tiene postulación asociada para editar #}
+                         <span>(Sin postulación para editar)</span>
+                    {% endif %}
+
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7">No hay desafíos disponibles.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {# Botón de guardar cambios para los checkboxes, se muestra/oculta con JS check.js #}
+    <button type="submit" id="saveChangesBtn" style="display: none;" aria-label="Guardar cambios de selección principal y público">Guardar cambios</button>
+</form>
+{% endblock %}
+
+{# No necesitas un bloque extra_js aquí si check.js se carga dentro del form,
+   pero es mejor cargarlo al final del body en admin.html si es posible #}
+{# {% block extra_js %}{% endblock %} #}
