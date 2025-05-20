@@ -1,0 +1,151 @@
+.titulo {
+    position: block;
+    background-color: #fff;
+    width: max-content;
+    padding: 30px;
+    
+    
+    
+}
+#label{
+    font-weight: bold;
+}
+.titulo h1 {
+    display: inline-block;
+    font-size: 1.8rem;
+    text-align: center;
+    color: #1E1E83;
+    padding-left: 40px;
+}
+
+form {
+    
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-sizing: border-box;
+    
+    width: 100%;
+}
+
+
+label {
+    display: block;
+    font-weight: bold;
+    color: #333;
+}
+
+input[type="text"],
+input[type="url"],
+input[type="number"],
+input[type="file"],
+select,
+textarea {
+    width: 90%;
+    padding: 0.8rem;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border 0.3s ease;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input[type="text"]:focus,
+input[type="url"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+    border-color: #0984e3;
+    outline: none;
+}
+
+/* Checkboxes */
+input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+label[for="id_isPrincipal"],
+label[for="id_show"] {
+    margin-bottom: 0.5rem;
+    font-weight: normal;
+}
+.form-columns {
+    display: flex;
+    bottom: 50px;
+}
+.readonly-field {
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            padding: 8px 12px;
+            color: #495057;
+            width: 85%;
+            margin-bottom: 1rem;
+        }
+        textarea.readonly-field {
+            min-height: 100px;
+            resize: none;
+        }
+
+
+.form-column {
+    flex: 1;
+}
+.bigbuttons{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+.bigbutton {
+    display: block;
+    width: 100%;
+    padding: 0.8rem;
+    background: #020381;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.bigbutton:hover {
+    background: #0652a5;
+}
+
+
+.errorlist {
+    color: red;
+    font-size: 14px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 0px;
+  }
+  
+.errorlist li {
+    margin-bottom: 0px;
+}
+
+label[for="imagen-clear_id"] {
+    display: inline-block;
+}
+
+.match{
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.match .form-group{
+    width: 40%;
+}

@@ -1,0 +1,98 @@
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #2D2DB9, #009ef3);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+    gap: 10%;
+}
+.logo img{
+    width: 400px;
+}
+.logincontainer {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.logincontainer h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #01014B;
+}
+
+.logincontainer form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.logincontainer label {
+    text-align: left;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.logincontainer input[type="text"],
+.logincontainer input[type="password"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border 0.3s ease;
+}
+
+.logincontainer input[type="text"]:focus,
+.logincontainer input[type="password"]:focus {
+    border-color: #009ef3;
+    outline: none;
+}
+
+.logincontainer button {
+    padding: 0.8rem;
+    background: linear-gradient(135deg, #2D2DB9, #009ef3);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.logincontainer button:hover {
+    background: linear-gradient(135deg, #009ef3, #2D2DB9);
+}
+
+/* Mensajes de error o éxito */
+.logincontainer ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+    color: #d9534f;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 769px) {
+    body {
+        flex-direction: column-reverse;
+    }
+    .logincontainer {
+        width: auto;
+    }
+}
+@media (max-width: 427px) {
+    .logo img{
+        width: 200px ;
+    }
+    
+}

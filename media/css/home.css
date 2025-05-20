@@ -1,0 +1,714 @@
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%); /* Fuera de la pantalla */
+    }
+    to {
+        transform: translateY(0); /* Posición final */
+    }
+}
+@keyframes slideUp {
+    from {
+        transform: translateY(0); /* Posición actual */
+    }
+    to {
+        transform: translateY(-100%); /* Fuera de la pantalla */
+    }
+}
+
+
+
+
+
+.slider {
+    position: relative;
+    overflow: hidden;
+    background-color: white;
+    height: 500px;
+}
+
+.slider-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    scrollbar-width: none;
+    height: 100%;
+    min-width: 100%;
+}
+
+
+.slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    background-color: rgb(29, 22, 68);
+}
+.slide-content{
+    height: 100%;
+    width: 50%;
+    padding-left: 9%;
+    position: absolute;
+    color:#fff;
+    border: none;
+    display: flex; /* Habilitamos Flexbox */
+    flex-direction: column; /* Alineamos los elementos internamente en columna */
+    justify-content: center; /* Centra verticalmente los elementos */
+  /* Otros estilos que ya tenías */
+}
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+
+}
+.slide-content h2 {
+    font-size: 48px;
+    font-weight: bold;
+
+    
+}
+
+.slide-content p {
+    font-size: clamp(1.3rem, 2.5vw, 8rem);
+
+    
+}
+
+.slide-content a  {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #e66706;
+    color: #fff;
+    border: white 2px solid;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    width: max-content;
+}
+
+.slide-content a:hover {
+    background-color: #a24600;
+}
+.slide:nth-child(1) {
+    
+    color: white;
+    background-image: url('../img/Fondo1.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+.slide:nth-child(2) {
+    color: white;
+    background-image: url('../img/fondodesafio.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 2;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.slider-btn.prev {
+    left: 10px;
+}
+
+.slider-btn.next {
+    right: 10px;
+}
+
+.slider-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+
+
+
+/* Siler horizontal */
+
+.horizontal-slider {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.horizontal-slider .card {
+  scroll-snap-align: start;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.como-trabajamos{
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    color: #010161;
+    height: 500px;
+    margin-top: 0px;
+}
+
+
+
+
+.desafios{
+    justify-content: space-evenly;
+    gap:3%;
+}
+
+/* Inicio area desafios*/
+
+.content {
+  padding: 20px;
+  color: #333;
+  background-color: #f9f9f9;
+}
+
+.content-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.content-header h1 {
+  font-size: 2.5rem;
+  color: #123458;
+  margin-bottom: 10px;
+}
+
+.content-container.desafios {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.desafio {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease-in-out;
+}
+
+.desafio:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.desafio img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+}
+
+.desafio-content {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.desafio-content h2 {
+  font-size: 1.5rem;
+  color: #123458;
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.desafio-content h3 {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  color: #6c757d;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.desafio-content h3 svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  fill: #6c757d; /* Color del icono */
+}
+
+.desafio-content p {
+  font-size: 0.9rem;
+  color: #495057;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.desafio-content button {
+  background-color: #0056b3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  margin-top: 15px;
+  align-self: flex-start;
+}
+
+.desafio-content button:hover {
+  background-color: #003d82;
+}
+
+/* Estilos Responsivos */
+@media (max-width: 768px) {
+  .content-header h1 {
+    font-size: 2rem;
+  }
+
+  .content-container.desafios {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .desafio-content h2 {
+    font-size: 1.3rem;
+  }
+
+  .desafio-content p {
+    font-size: 0.85rem;
+  }
+
+  .desafio-content button {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .content {
+    padding: 15px;
+  }
+
+  .content-container.desafios {
+    grid-template-columns: 1fr; /* Un desafío por fila */
+  }
+
+  .desafio {
+    margin-bottom: 15px;
+  }
+
+  .desafio-content h2 {
+    font-size: 1.2rem;
+  }
+
+  .desafio-content p {
+    font-size: 0.8rem;
+  }
+
+  .desafio-content button {
+    font-size: 0.85rem;
+    padding: 6px 10px;
+  }
+}
+  /*Fin area Desafios */
+
+
+/*Area como trabajamos*/
+.trabajamos-header{
+    display: flex;
+    margin: 80px;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.trabajamos-container {
+    display: flex;
+    box-sizing: border-box;
+    justify-content: space-between;
+    height:auto;
+    overflow-x: auto;
+    flex-direction: row;
+}
+/*Fin Area como trabajamos*/
+
+/* Area innovacion*/
+.inovacion-header{
+    display: flex;
+    margin: 80px;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+.inovacion-container {
+    display: flex;
+    box-sizing: border-box;
+    justify-content: space-between;
+    height:auto;
+    overflow-x: auto;
+    flex-direction: row;
+}
+.inovacion-header button {
+    padding: 10px 20px;
+    font-size: clamp(1rem, 2.5vw, 2rem);
+    background-color: #01014B;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: max-content;
+}
+/* Fin Area innovacion*/
+
+
+
+
+.entrada{
+    display: flex;
+    flex-direction: column;
+    padding: 1%;
+    align-items: center;
+    text-align: center;
+    width: 40%;
+}
+.entrada a{
+    text-decoration: none;
+}
+.entrada h2{
+    margin-bottom: 0;
+}
+
+.areas{
+    color: #FFFFFF;
+    background-color: #123458;
+    padding: 2%;
+    
+}
+
+
+.que-es-nodo{
+    color: #01014B;
+    padding: 3%;
+    display: flex;
+    flex-direction: row;
+    gap: 7%;
+    background-color: #D4C9BE;
+    height: auto;
+}
+.que-es-nodo p{
+    font-weight: 300;
+    font-size: 35px;
+
+}
+
+
+.que-es-nodo .text{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.que-es-nodo .text p {
+  font-weight: 400;
+  font-size: clamp(1rem, 3vw, 1.5rem); /* Ajustar el tamaño del párrafo */
+  text-align: left; /* Alinear el texto a la izquierda */
+}
+
+.que-es-nodo .text h1 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem); /* Ajustar el tamaño del título */
+}
+
+.que-es-nodo img{
+    min-width: 40%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 30px;
+    max-width: 100%;
+}
+
+.como-nace-nodo{
+    color: #01014B;
+    padding: 3%;
+    display: flex;
+    flex-direction: row;
+    gap: 7%;
+    background-color: #D4C9BE;
+    height: 500px;
+}
+.como-nace-nodo text{
+    display: flex;
+    flex-direction: row;
+}
+.como-nace-nodo p{font-size: 20px;}
+.como-nace-nodo img{
+    min-width: 40%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 30px;
+}
+
+.entrada img{
+    width: 120px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.conocenos p{
+    text-align: justify;
+    font-size: 1.2rem;
+    margin-top: 0;
+}
+.contact-button a img{
+    width: 30px;
+    height: auto;
+    border-radius: 0px;
+    margin-top: 8px;
+}
+
+
+
+/* slider de conocenos*/
+
+.conocenos-slider-container {
+  width: 100%;
+  max-width: 100%;
+  padding: 20px 0;
+  background-color: #0d2c52;
+  color: white;
+  text-align: center;
+}
+
+.conocenos-title {
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+
+.conocenos-slider {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.conocenos-slider-track {
+  position: relative;
+  background-color: #e9ecef;
+  border-radius: 8px;
+  padding: 30px;
+  color: #333;
+  min-height: 350px;
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+}
+
+.conocenos-slide {
+  display: none;
+  
+}
+
+.conocenos-slide.active {
+  display: block;
+}
+
+.conocenos-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.conocenos-image-container {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+  margin-top: -65px; /* Para posicionar la imagen sobresaliendo */
+  position: relative;
+  z-index: 2;
+}
+
+.conocenos-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #123458;
+  background-color: white;
+}
+
+.conocenos-info {
+  width: 100%;
+}
+
+.conocenos-name {
+  color: #0d2c52;
+  font-size: 1.5rem;
+  margin: 15px 0 5px;
+  font-weight: 700;
+}
+
+.conocenos-position {
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  color: #666;
+  display: block;
+}
+
+.conocenos-social {
+  margin: 15px 0;
+}
+
+.conocenos-social-icon {
+  width: 25px;
+  height: 25px;
+}
+
+.conocenos-quote {
+  font-style: italic;
+  margin: 0 0 20px;
+  padding: 0;
+  border-left: none;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Navigation controls */
+.conocenos-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  color: white;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.conocenos-prev {
+  left: 0;
+}
+
+.conocenos-next {
+  right: 0;
+}
+
+/* Dots navigation */
+.conocenos-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.conocenos-dot {
+  width: 10px;
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.conocenos-dot.active {
+  background-color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .slide-content{
+        align-items: center;
+    }
+
+  .que-es-nodo {
+    flex-direction: column; /* Apilar imagen y texto */
+    align-items: center; /* Centrar los elementos horizontalmente */
+    text-align: center; /* Centrar el texto */
+    gap: 20px; /* Reducir el espacio entre elementos */
+    height: auto; /* Asegurar que la altura se ajuste al contenido apilado */
+  }
+
+  .que-es-nodo img {
+    min-width: 80%; /* Hacer la imagen más ancha en pantallas pequeñas */
+    max-height: 300px; /* Limitar la altura de la imagen si es necesario */
+    border-radius: 20px;
+  }
+
+  .que-es-nodo .text {
+    width: 80%; /* Limitar el ancho del texto */
+  }
+
+  .que-es-nodo .text p {
+    text-align: center; /* Centrar el texto en pantallas pequeñas */
+  }
+}
+
+/* fin slider*/
+
+
+@media (max-width: 600px) {
+    
+
+  .que-es-nodo img {
+    min-width: 95%;
+    max-height: 250px;
+    border-radius: 15px;
+  }
+
+  .que-es-nodo .text {
+    width: 95%;
+  }
+
+  .que-es-nodo .text h1 {
+    font-size: clamp(1.2rem, 5vw, 2rem);
+  }
+
+  .que-es-nodo .text p {
+    font-size: clamp(0.9rem, 4vw, 1.3rem);
+  }
+}
+
+@media (max-width: 400px) {
+  .slide-content h2 {
+    font-size: clamp(1.2rem, 8vw, 2rem);
+  }
+
+  .slide-content p {
+    font-size: clamp(0.9rem, 6vw, 1.3rem);
+  }
+}
