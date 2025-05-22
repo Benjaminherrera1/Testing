@@ -1,33 +1,42 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/postulacion_i.css' %}">
+    
+    <script>
+        console.log("Esto es un script embebido");
+    </script>
+    <script src="{% static 'js/stepper_desafio.js' %}"></script>
 {% endblock %}
 
+
 {% block content %}
-<body style="background-image: url(&quot;{% static 'img/fondodesafio2.png' %}&quot;); background-size: cover; background-repeat: no-repeat; background-position: center; background-attachment: fixed;"></body>
-
+<body style="background-image: url(&quot;{% static 'img/fondodesafio2.png' %}&quot;); background-size: cover; background-repeat: no-repeat; background-position: center; background-attachment: fixed;" data-paso-actual="{{ paso_actual }}">
     <div class="content">
-        <div class="formulario">
-            {% block formulario %}
-            {% endblock %}
-        </div>
-        <div class="texto-postulacion">
-
-            <h2 class="titulo-desafio">Postulación de desafio</h2>
-            <p class="frase-impacto grande">Estas a un paso de un gran cambio!</p>
-            <p class="descripcion-impacto">Esta postulacion es el inicio del camino para que podamos administrar tu solucion de la mejor manera</p>
-
-            <!-- Stepper horizontal -->
-            <div class="stepper-horizontal">
-                {# Changed from 4 steps to 3 steps #}
-                <div class="step-h {% if paso_actual == 1 %}active-h{% endif %}">1</div>
-                <div class="line-h"></div>
-                <div class="step-h {% if paso_actual == 2 %}active-h{% endif %}">2</div>
-                <div class="line-h"></div>
-                <div class="step-h {% if paso_actual == 3 %}active-h{% endif %}">3</div>
-                {# Removed the 4th step div and the last line div #}
+        <div class="zona-formulario">
+            <div class="formulario">
+                {% block formulario %}
+                {% endblock %}
             </div>
         </div>
+
+        {% if not ocultar_stepper %}
+        <div class="texto-postulacion">
+            <h2 class="titulo-desafio">Postulación de desafío</h2>
+
+            <h1 class="frase-impacto grande">¡Estás a un paso de un gran cambio!</h1>
+            <p class="descripcion-impacto">Esta postulación es el inicio del camino para que podamos administrar tu solución de la mejor manera.</p>
+
+            <div class="stepper-horizontal">
+                <div class="step-h {% if paso_actual == 1 %}active-h{% endif %}" id="step-1">1</div>
+                <div class="line-h" id="line-1"></div>
+                <div class="step-h {% if paso_actual == 2 %}active-h{% endif %}" id="step-2">2</div>
+                <div class="line-h" id="line-2"></div>
+                <div class="step-h {% if paso_actual == 3 %}active-h{% endif %}" id="step-3">3</div>
+            </div>
+        </div>
+        {% endif %}
     </div>
+</body>
 {% endblock %}

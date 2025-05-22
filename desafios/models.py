@@ -1,21 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import User
-from administracion.models import Empresa, usuario_base
+from administracion.models import Empresa, contactoEmpresa
 from storages.backends.s3boto3 import S3Boto3Storage
 import os
+
 
 class PostulacionDesafio (models.Model):
     id = models.AutoField(primary_key=True)  
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
-    contacto = models.ForeignKey(usuario_base, on_delete=models.CASCADE)
+    contacto = models.ForeignKey(contactoEmpresa, on_delete=models.CASCADE)
     
     fecha = models.DateTimeField(auto_now_add=True)  
     descripcionInicial = models.TextField()  
     desafioFrase = models.TextField()  
     presupuesto = models.CharField(max_length=255) 
-    pregunta = models.TextField()  
-    origen = models.CharField(max_length=255)  
-    estado = models.CharField(default="Por Depurar") 
+    pregunta = models.TextField()   #preguntas sobre NODO
+    origen = models.CharField(max_length=255)  #como te enteraste de NODO
+    estado = models.CharField(default="Por Depurar") #Depurado, Descartado, Por depurar
     
     isActive = models.BooleanField(default=True)
     def __str__(self):
@@ -26,11 +27,11 @@ class Desafio (models.Model):
     postulacion = models.ForeignKey(PostulacionDesafio, on_delete=models.CASCADE)  
     ejecutivo = models.ForeignKey(User, on_delete=models.CASCADE)
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
-    contacto = models.ForeignKey(usuario_base, on_delete=models.CASCADE)
+    contacto = models.ForeignKey(contactoEmpresa, on_delete=models.CASCADE)
 
     fecha = models.DateTimeField(auto_now_add=True)  
 
-    webEmpresa = models.URLField(max_length=255,blank=True) 
+    webEmpresa = models.URLField(max_length=255,blank=True)  # URL del sitio web de la empresa
     nombreDesafio = models.CharField(max_length=255,blank=False)  
     impactoProblema = models.TextField(blank=True)  
     efectoOperacion = models.TextField(blank=True)  

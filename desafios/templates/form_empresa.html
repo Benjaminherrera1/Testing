@@ -1,36 +1,68 @@
 {% extends 'postulacion.html' %}
 {% load static %}
 
-{%block formulario%}
-    <h2>Formulario de desafio</h2>
-    <h1>Datos de la empresa</h1>
-    <form method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="{{ form.nombre.id_for_label }}">Nombre de empresa o Institucion Publica</label>
-            {{ form.nombre }}  
+{% with paso_actual=1 %}
+{% block formulario %}
+
+<!-- Títulos -->
+<h2>Formulario de desafío</h2>
+<h1>Datos de la empresa</h1>
+
+<form method="post">
+    {% csrf_token %}
+    
+    <div class="form-group" style="max-width: 80%;">
+        <label for="{{ form.nombre.id_for_label }}">Nombre de la empresa o institución pública</label>
+        {{ form.nombre }}
+    </div>
+    
+    <div class="row">
+        <div class="column">
+            <div class="form-group">
+                <label for="{{ form.cantPersonas.id_for_label }}">Cantidad de personas que tiene su empresa</label>
+                {{ form.cantPersonas }}
+            </div>
         </div>
-          
-        <div class="form-group">
-            <label for="{{ form.cantPersonas.id_for_label }}">Cantidad de personas que tiene su empresa</label>
-            {{ form.cantPersonas }}
+        <div class="column">
+            <div class="form-group">
+                <label for="{{ form.año.id_for_label }}">Año de fundación</label>
+                {{ form.año }}
+            </div>
         </div>
-        <div class="form-group">
-            <label for="{{ form.año.id_for_label }}">Año de fundacion de la empresa</label>
-            {{ form.año }}
+    </div>
+    
+    <div class="row">
+        <div class="column">
+            <div class="form-group">
+                <label for="{{ form.actividad.id_for_label }}">Actividad económica principal</label>
+                {{ form.actividad }}
+            </div>
         </div>
-        <div class="form-group">
-            <label for="{{ form.actividad.id_for_label }}">Actividad de la empresa</label>
-            {{ form.actividad }}
+        <div class="column">
+            <div class="form-group">
+                <label for="{{ form.ciudad.id_for_label }}">Ciudad principal de operaciones</label>
+                {{ form.ciudad }}
+            </div>
         </div>
-        <div class="form-group">
-            <label for="{{ form.pais.id_for_label }}">Pais sede principal</label>
-            {{ form.pais }}
+    </div>
+
+    <div class="row">
+        <div class="column">
+            <div class="form-group">
+                <label for="{{ form.pais.id_for_label }}">País de la sede principal</label>
+                {{ form.pais }}
+            </div>
         </div>
-        <div class="form-group">
-            <label for="{{ form.ciudad.id_for_label }}">Ciudad</label>
-            {{ form.ciudad }}
+        <div class="column">
+            
         </div>
+    </div>
+    
+    <div class="buttons">
+        <a href="{% url 'home:index' %}" class="button">Volver</a>
         <button type="submit">Siguiente</button>
-    </form>
-{%endblock%}
+    </div>
+</form>
+
+{% endblock %}
+{% endwith %}

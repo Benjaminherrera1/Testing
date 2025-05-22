@@ -1,30 +1,42 @@
 {% extends 'postulacion.html' %}
 {% load static %}
 
-{%block formulario%}
-    <h2>Rellena el formulario de contacto</h2>
-    <form method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="{{ form.nombre.id_for_label }}">Nombre del contacto</label>
-            {{ form.nombre }}  
-        </div>
-        <div class="form-group">
-            <label for="{{ form.cargo.id_for_label }}">Cargo del contacto</label>
-            {{ form.cargo }}  
-        </div>
-        <div class="form-group">
-            <label for="{{ form.correo.id_for_label }}">Correo del contacto</label>
-            {{ form.correo }}  
-        </div>
-        <div class="form-group">
-            <label for="{{ form.telefono.id_for_label }}">Telefono del contacto</label>
-            {{ form.telefono }}  
-        </div>
-        <div class="buttons">
-            <button type="button"onclick="location.href='empresa';" >Atras</button>
-            <button type="submit">Siguiente</button>
-        </div>
-    </form>
-{%endblock%}
+{% with paso_actual=3 %}
+{% block formulario %}
+    
+<h2>Formulario de desafío</h2>
+<h1>Datos de contacto</h1>
 
+<form method="post">
+    {% csrf_token %}
+
+    <div class="row" style="gap: 0;">
+        <div class="column" style="flex: 0 0 80%;">
+            <div class="form-group">
+                <label for="{{ form.nombre.id_for_label }}">Nombre del contacto</label>
+                {{ form.nombre }}  
+            </div>
+            <div class="form-group">
+                <label for="{{ form.cargo.id_for_label }}">Cargo del contacto</label>
+                {{ form.cargo }}  
+            </div>
+            <div class="form-group">
+                <label for="{{ form.correo.id_for_label }}">Correo del contacto</label>
+                {{ form.correo }}  
+            </div>
+            <div class="form-group">
+                <label for="{{ form.telefono.id_for_label }}">Teléfono del contacto</label>
+                {{ form.telefono }}  
+            </div>
+        </div>
+        <div class="column" style="flex: 0 0 20%;"></div>
+    </div>
+
+    <div class="buttons">
+        <button type="button" class="boton-volver" onclick="location.href='empresa';">Volver</button>
+        <button type="submit">Siguiente</button>
+    </div>
+</form>
+
+{% endblock %}
+{% endwith %}

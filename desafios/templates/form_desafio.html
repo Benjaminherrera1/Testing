@@ -1,42 +1,101 @@
 {% extends 'postulacion.html' %}
 {% load static %}
 
-{%block formulario%}
+{% with paso_actual=3 %}
+{% block formulario %}
+
+<!-- Script reCAPTCHA -->
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-    <h2>Rellena el formulario de desafío</h2>
-    <form method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="{{ form.descripcionInicial.id_for_label }}">Coméntenos el desafío que desea resolver</label>
-            {{ form.descripcionInicial }}  
-        </div>
-        <div class="form-group">
-            <label for="{{ form.desafioFrase.id_for_label }}">Puede resumir su desafío en una frase?</label>
-            {{ form.desafioFrase }}  
-        </div>
-        <div class="form-group">
-            <label for="{{ form.presupuesto.id_for_label }}">Actualmente, cuenta con presupuesto para abordar este desafío?</label>
-            {{ form.presupuesto }} 
-        </div>
-        <div class="form-group">
-            <label for="{{ form.pregunta.id_for_label }}">Deseas hacer alguna pregunta o sugerencia al centro de innovación?</label>
-            {{ form.pregunta }}  
-        </div>  
-        <div class="form-group">
-            <label for="{{ form.origen.id_for_label }}">Cómo te enteraste de NODO Centro de Innovación OMCPL?</label>
-            {{ form.origen }} 
-        </div>
-        <div class="form-group">
-            <label >Escribe el siguiente texto </label>
-            {{ form.captcha }} 
-        </div>
-        
-        <div class="buttons">
-            <button type="button"onclick="location.href='contacto';" >Atras</button>
-            <button type="submit">Finalizar</button>
-        </div>
-    </form>
-{%endblock%}
+<h2>Formulario de desafío</h2>
+<h1>Datos del desafío</h1>
 
+<form method="post" id="formularioDesafioParte3">
+    {% csrf_token %}
 
+    <div class="form-group">
+        <label for="{{ form.desafioFrase.id_for_label }}">Escriba un título para su desafío</label>
+        {{ form.desafioFrase }}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.descripcionInicial.id_for_label }}">Coméntenos el desafío que desea resolver</label>
+        {{ form.descripcionInicial }}
+    </div>
+
+    <div class="row">
+        <div class="column">
+            <label for="{{ form.pregunta.id_for_label }}">¿Deseas hacer alguna pregunta o sugerencia al centro de innovación?</label>
+            {{ form.pregunta }}
+        </div>
+
+        <div class="column">
+            <label>¿Actualmente cuenta con presupuesto para abordar este desafío?</label>
+            <div class="radio-group">
+                <label class="radio-label">
+                    <input type="radio" name="{{ form.presupuesto.name }}" value="si"
+                        {% if form.presupuesto.value == 'si' %}checked{% endif %}>
+                    Sí
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="{{ form.presupuesto.name }}" value="no"
+                        {% if form.presupuesto.value == 'no' %}checked{% endif %}>
+                    No
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.origen.id_for_label }}">¿Cómo te enteraste de NODO Centro de Innovación OMCPL?</label>
+        {{ form.origen }}
+    </div>
+
+    <!-- CAPTCHA del backend -->
+    <div class="form-group">
+        <label>Escribe el siguiente texto</label>
+        <div class="captcha-wrapper">
+            {{ form.captcha }}
+        </div>
+    </div>
+
+    <!-- Google reCAPTCHA -->
+    <div class="form-group">
+        <label>Verificación de seguridad</label>
+        <div style="transform: scale(0.85); transform-origin: 0 0;">
+            <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+        </div>
+        <div id="captcha-error" class="error-message" style="color: red; display: none;">
+            Por favor, completa el captcha
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button type="button" class="boton-volver" onclick="location.href='contacto';">Volver</button>
+        <button type="submit" id="btn-finalizar">Finalizar</button>
+    </div>
+</form>
+
+<!-- Validación de Google reCAPTCHA en el submit -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('formularioDesafioParte3');
+        const btn = document.getElementById('btn-finalizar');
+
+        if (form && btn) {
+            form.addEventListener('submit', function (event) {
+                const recaptchaResponse = grecaptcha.getResponse();
+
+                if (recaptchaResponse.length === 0) {
+                    event.preventDefault();
+                    document.getElementById('captcha-error').style.display = 'block';
+                } else {
+                    document.getElementById('captcha-error').style.display = 'none';
+                }
+            });
+        }
+    });
+</script>
+
+{% endblock %}
+{% endwith %}

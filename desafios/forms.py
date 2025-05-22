@@ -2,6 +2,7 @@ from django import forms
 from captcha.fields import CaptchaField
 from django import forms
 
+
 class EmpresaForm(forms.Form):
     nombre = forms.CharField(max_length=255)
     cantPersonas = forms.IntegerField()
