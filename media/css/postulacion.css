@@ -1,120 +1,337 @@
-h1,h2,h3,p,small,label{
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+h1, h2, h3, p, small {
+    color: #0e0d0d;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 700;
     color: #01014B;
-}
-.content {
-    display: flex;
-    gap: 20px; 
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+    margin-top: 0;
+    margin-bottom: 20px;
 }
 
-
-
-
-.view-more{
-    display: none;
-    float:right;
-    color: blue;
-    text-decoration: underline;
-    cursor: pointer;
-    font-size: 14px;
+h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #0c1248;
+    margin-top: 0;
+    margin-bottom: 5px;
 }
+
+/* Formulario y sus elementos */
 .formulario {
-    flex-grow: 1;
-    background-color: #FFFFFF;
-    padding-inline: 40px;
-    padding-bottom: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    z-index: 2;
 }
+
 form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
 }
 
 .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    margin-bottom: 15px;
 }
 
-.form-group img{
-    width:70px;
-}
-
-form label {
-    font-weight: 500;
-    font-size: 0.9rem;
-    color: #01014B;
-}
-
-form input, form textarea, form select {
-    padding: 12px;
-    border: 1px solid #E0E0E0;
-    border-radius: 8px;
+label {
+    display: block;
     font-size: 14px;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: 500;
+    height: 36px;
+    display: flex;
+    align-items: flex-end;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 36px;
     background-color: #F9F9F9;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    width: 100%;
 }
 
-form input:focus, form textarea:focus, form select:focus {
+textarea {
+    height: 80px;
+    resize: vertical;
+}
+
+input:focus, select:focus, textarea:focus {
     border-color: #007BFF;
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
     outline: none;
 }
+
+.row {
+    display: flex;
+    gap: 15px;
+}
+
+.column {
+    flex: 1;
+}
+
+/* Botones */
 .buttons {
     display: flex;
     justify-content: space-between;
+    margin-top: 30px;
 }
-button,.button {
-    text-decoration: none;
+
+.btn {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background-color: #0c1248;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #e67e22;
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+button, .button {
     padding: 12px 24px;
-    font-size: 16px;
-    font-weight: 600;
-    background-color: #01014B;
-    color: #FFFFFF;
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    font-weight: 600;
     transition: background-color 0.3s ease;
-    align-self: flex-end;
+    font-size: 16px;
 }
 
-button:hover {
+button[type="submit"], .btn-secondary {
+    background-color: #e67e22;
+    color: white;
+}
+
+button[type="button"], .btn-primary, .boton-volver {
+    background-color: #0c1248;
+    color: white;
+}
+
+button:hover, .button:hover {
+    opacity: 0.9;
+}
+
+.boton-volver:hover {
     background-color: #007BFF;
 }
-@media (max-width: 758px){
-    .content{
+
+a.button {
+    color: #ffffff;
+    text-decoration: none;
+    display: inline-block;
+    background-color: #01014B;
+}
+
+/* Layout de la página */
+.content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    gap: 40px;
+}
+
+.zona-formulario {
+    width: 100%;
+    max-width: 500px;
+    z-index: 1;
+}
+
+/* Sección de texto lateral */
+.texto-postulacion {
+    width: 45%;
+    position: absolute;
+    right: 0;
+    top: -60%;
+    transform: translateY(150%);
+    padding-right: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+    gap: 16px;
+    z-index: 1;
+}
+
+.titulo-desafio {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    margin-bottom: 20px;
+}
+
+.frase-impacto.grande {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin-bottom: 16px;
+}
+
+.descripcion-impacto {
+    font-size: 1.4rem;
+    color: #FFFFFF;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+/* Stepper horizontal */
+.stepper-horizontal {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 20px;
+}
+
+.step-h {
+    width: 36px;
+    height: 36px;
+    border: 2px solid #FFFFFF;
+    background-color: transparent;
+    color: #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.step-h.active-h {
+    background-color: #FF7900;
+    color: white;
+    border-color: #FF7900;
+}
+
+.line-h {
+    height: 2px;
+    width: 50px;
+    background-color: #FFFFFF;
+    transition: all 0.3s ease;
+}
+
+/* Checkbox y Radio buttons */
+.radio-group, .checkbox-group {
+    margin-top: 10px;
+}
+
+.radio-option, .checkbox-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.radio-option input[type="radio"],
+.checkbox-option input[type="checkbox"] {
+    width: auto;
+    height: auto;
+    margin-right: 8px;
+}
+
+.radio-option label,
+.checkbox-option label {
+    height: auto;
+    margin-bottom: 0;
+}
+
+/* Captcha container */
+.captcha-container {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.error-message {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Mensajes de éxito y error */
+.mensaje-exito, .mensaje-error {
+    text-align: center;
+    padding: 20px;
+}
+
+.mensaje-exito h2 {
+    color: #ff5100;
+    margin-bottom: 15px;
+    text-decoration: none;
+    display: inline-block;
+}
+----------------------------------------------------
+.mensaje-error h2 {
+    color: #dc3545;
+    margin-bottom: 15px;
+}
+
+/* Media queries para responsive */
+@media (max-width: 768px) {
+    .content {
         flex-direction: column-reverse;
     }
-    .texto{
-        width: 100%;
-        padding-inline: 4%;
-    }    
-    .text.expandido {
-        -webkit-line-clamp: unset; 
-    }
     
-    .text{
-        transition: max-height 0.5s ease, -webkit-line-clamp 0.5s ease;
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
+    .formulario {
+        max-width: 100%;
     }
-    .view-more{
-        display: block;
+
+    .texto-postulacion {
+        width: 100%;
+        position: relative;
+        top: auto;
+        transform: none;
+        padding-right: 0;
+        margin-bottom: 20px;
     }
-    .formulario{
-        padding-inline: 4%;
+
+    .row {
+        flex-direction: column;
+        gap: 10px;
     }
-    form textarea{
-        height: 120px;
+
+    .buttons {
+        flex-direction: column;
+        gap: 10px;
     }
-    .inputtexto{
-        height:60px;    
+
+    button, .button {
+        width: 100%;
     }
 }

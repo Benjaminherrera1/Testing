@@ -44,15 +44,15 @@ body{
 
 /* Estilos específicos para la sección de Solución */
 .solucion {
-    border: 2px solid #2db934;
+    border: 2px solid #E66706;
 }
 
 .solucion h2 {
-    color: #2db934;
+    color: #E66706;
 }
 
 .solucion .btn {
-    background-color: #2db934;
+    background-color: #E66706;
     color: #fff;
 }
 

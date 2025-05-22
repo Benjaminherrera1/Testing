@@ -1,0 +1,89 @@
+{% extends 'postulacion_iniciativa.html' %}
+{% load static %}
+
+{% with paso_actual=4 %}
+{% block formulario %}
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<h2>Formulario de Iniciativa</h2>
+<h1>Datos de Iniciativa</h1>
+
+<form method="post" id="formularioIniciativaParte2">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="{{ form.piloto.id_for_label }}">¿Cuáles son los requerimientos para la implementación de un piloto? (tiempo, costo, alcance, entre otros)</label>
+        {{ form.piloto }}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.pregunta.id_for_label }}">¿Deseas hacer alguna pregunta o sugerencia al centro de innovación?</label>
+        {{ form.pregunta }}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.origen.id_for_label }}">¿Cómo te enteraste de NODO Centro de Innovación OMCPL?</label>
+        <div class="checkbox-group">
+            <div class="checkbox-option">
+                <input type="checkbox" id="noticias" name="origen" value="Noticias/Diario">
+                <label for="noticias" style="height: auto;">Noticias/Diario</label>
+            </div>
+            <div class="checkbox-option">
+                <input type="checkbox" id="anuncios" name="origen" value="Anuncios">
+                <label for="anuncios" style="height: auto;">Anuncios</label>
+            </div>
+            <div class="checkbox-option">
+                <input type="checkbox" id="redes" name="origen" value="Redes Sociales">
+                <label for="redes" style="height: auto;">Redes Sociales</label>
+            </div>
+            <div class="checkbox-option">
+                <input type="checkbox" id="recomendacion" name="origen" value="Recomendación">
+                <label for="recomendacion" style="height: auto;">Recomendación</label>
+            </div>
+            <div class="checkbox-option">
+                <input type="checkbox" id="otro" name="origen" value="Otro">
+                <label for="otro" style="height: auto;">Otro</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Escribe el siguiente texto</label>
+        {{ form.captcha }} 
+    </div>
+
+    <div class="captcha-container">
+        <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+        <div id="captcha-error" class="error-message" style="color: red; display: none;">Por favor, completa el captcha</div>
+    </div>
+
+    <div class="buttons">
+        <a href="{% url 'iniciativa_parte1_step_i' %}" class="button boton-volver">Anterior</a>
+        <button type="submit" class="button" id="btn-finalizar">Finalizar</button>
+    </div>
+</form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const formulario = document.getElementById('formularioIniciativaParte2');
+    if (formulario) {
+        formulario.addEventListener('submit', function(event) {
+            const recaptchaResponse = grecaptcha.getResponse();
+
+            if (recaptchaResponse.length === 0) {
+                event.preventDefault();
+                document.getElementById('captcha-error').style.display = 'block';
+            } else {
+                document.getElementById('captcha-error').style.display = 'none';
+            }
+
+            const checkboxes = document.querySelectorAll('input[name="origen"]:checked');
+            if (checkboxes.length === 0) {
+                event.preventDefault();
+                alert('Por favor, selecciona cómo te enteraste de NODO Centro de Innovación OMCPL');
+            }
+        });
+    }
+});
+</script>
+{% endblock %}
+{% endwith %}
