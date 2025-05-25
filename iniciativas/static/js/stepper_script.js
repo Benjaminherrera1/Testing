@@ -1,14 +1,3 @@
-const menuToggle = document.getElementById('menu-toggle');
-const sidebar = document.getElementById('sidebar');
-
-menuToggle.addEventListener('click', () => {
-    sidebar.classList.toggle('active');
-});
-sidebar.addEventListener('click', () => {
-    sidebar.classList.toggle('active');
-});
-
-
 // Función para actualizar el stepper basado en el paso actual
 function actualizarStepper(pasoActual) {
     // Seleccionar todos los elementos del stepper

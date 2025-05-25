@@ -23,10 +23,11 @@
 
         <h4>Comparte este post en:</h4>
         <div class="share-buttons">
-            <a class="share-button facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://innovacion.omcpl.org/blog/{{ post.slug }}" target="_blank">Facebook</a>
-            <a class="share-button twitter" href="https://twitter.com/intent/tweet?url=https://innovacion.omcpl.org/blog/{{ post.slug }}&text={{ post.titulo }}" target="_blank">Twitter</a>
-            <a class="share-button linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https://innovacion.omcpl.org/blog/{{ post.slug }}" target="_blank">LinkedIn</a>
-            <a class="share-button whatsapp" href="https://wa.me/?text=https://innovacion.omcpl.org/blog/{{ post.slug }}" target="_blank">WhatsApp</a>
+            {# Usa URL absoluta construida automáticamente para mayor robustez #}
+            <a class="share-button facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank">Facebook</a>
+            <a class="share-button twitter" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ post.titulo }}" target="_blank">Twitter</a>
+            <a class="share-button linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}" target="_blank">LinkedIn</a>
+            <a class="share-button whatsapp" href="https://wa.me/?text={{ request.build_absolute_uri }}" target="_blank">WhatsApp</a>
         </div>
 
         <div class="tags">
@@ -38,3 +39,4 @@
     </div>
 </div>
 {% endblock %}
+

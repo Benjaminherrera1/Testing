@@ -1,0 +1,61 @@
+{% extends 'postulacion_iniciativa.html' %}
+{% load static %}
+
+{% with paso_actual=3 %}
+{% block formulario %}
+<h2>Formulario de Iniciativa</h2>
+<h1>Datos de Iniciativa</h1>
+
+<form method="post" id="formularioIniciativaParte1">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="{{ form.titulo.id_for_label }}">Escriba un título para su postulación</label>
+        {{ form.titulo }}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.descripcion.id_for_label }}">Describa su iniciativa</label>
+        {{ form.descripcion }}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.video.id_for_label }}">Enlace a video sobre la solución (opcional)</label>
+        {{ form.video }}
+    </div>
+
+    <div class="row">
+        <div class="column">
+            <div class="form-group">
+                <label for="{{ form.traccion.id_for_label }}">Tracción (Ingresos últimos 12 meses)</label>
+                {{ form.traccion }}
+            </div>
+        </div>
+        <div class="column">
+            <div class="form-group">
+                <label>¿Tiene presencia en Latinoamérica?</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="latam_si" name="latam" value="Si" {% if form.latam.value == 'Si' %}checked{% endif %}>
+                        <label for="latam_si" style="height: auto;">Sí</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="latam_no" name="latam" value="No" {% if form.latam.value == 'No' %}checked{% endif %}>
+                        <label for="latam_no" style="height: auto;">No</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.diferenciacion.id_for_label }}">¿Cómo se diferencia de la competencia?</label>
+        {{ form.diferenciacion }}
+    </div>
+
+    <div class="buttons">
+        <a href="{% url 'contacto_step_i' %}" class="button boton-volver">Anterior</a>
+        <button type="submit" class="button">Siguiente</button>
+    </div>
+</form>
+{% endblock %}
+{% endwith %}

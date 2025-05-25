@@ -2,7 +2,9 @@
 {% load static %}
 
 {% block formulario %}
-<h2>No se envió el formulario</h2>
-<p>Asegúrate de que todos los campos están completos antes de continuar.</p>
-<a href="{% url empresa_step_url_name %}" class="button">Volver</a>
+<div class="mensaje-error">
+    <h2>No se envió el formulario</h2>
+    <p>Asegúrate de que todos los campos están completos antes de continuar.</p>
+    <a href="{% url 'url empresa_step_url_name' id=0 %}" class="button">Volver</a>
+</div>
 {% endblock %}

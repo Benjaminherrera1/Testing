@@ -61,6 +61,7 @@ form {
     gap: 15px;
 }
 
+<<<<<<< HEAD
 .form-group {
     margin-bottom: 15px;
 }
@@ -260,6 +261,8 @@ a.button {
 }
 
 /* Texto lateral */
+=======
+>>>>>>> origin/Vicente-v4
 .texto-postulacion {
     width: 45%;
     position: absolute;
@@ -297,8 +300,12 @@ a.button {
     margin-bottom: 30px;
 }
 
+<<<<<<< HEAD
 /* NUEVAS CLASES PARA FILAS Y COLUMNAS */
 .row {
+=======
+.stepper-horizontal {
+>>>>>>> origin/Vicente-v4
     display: flex;
     gap: 15px;
     margin-bottom: 15px;
@@ -325,9 +332,13 @@ a.button {
     background-color: #F9F9F9;
 }
 
+<<<<<<< HEAD
 
 /* Responsive */
 @media (max-width: 768px) {
+=======
+@media (max-width: 758px) {
+>>>>>>> origin/Vicente-v4
     .content {
         flex-direction: column-reverse;
     }
